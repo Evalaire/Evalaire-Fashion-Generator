@@ -1,0 +1,215 @@
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evalaire Fashion Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+                    h1 {
+            font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            font-style: italic; /* Beautiful classy slant */
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #ff7da7; 
+            text-shadow: 1px 1px 0px #fff;
+        }
+            background-color: #fff0f5; 
+            color: #5c4d66;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            transition: background-color 0.5s ease; 
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 90%;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.88); 
+            backdrop-filter: blur(10px);
+            border-radius: 35px; 
+            border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(220, 180, 200, 0.3);
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            color: #ff7da7; 
+            letter-spacing: -1px;
+            text-transform: lowercase; /* Cute, trendy lowercase look */
+        }
+
+        p {
+            font-size: 1.05rem;
+            color: #8c7699;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .main-btn {
+            background-color: #ff9ebb;
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #e07b99; 
+            transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.3s;
+            min-width: 250px; 
+            letter-spacing: -0.5px;
+        }
+
+        .main-btn:hover {
+            background-color: #ffaec7;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0 #e07b99;
+        }
+
+        .main-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #e07b99; 
+        }
+
+        .custom-panel {
+            position: absolute;
+            bottom: 30px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-panel span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #8c7699;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .dot-pink { background-color: #fff0f5; }
+        .dot-blue { background-color: #e6f7ff; }
+        .dot-yellow { background-color: #fefae0; }
+        .dot-green { background-color: #e8f5e9; }
+        .dot-purple { background-color: #f3e5f5; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>let's find a clothing brand!</h1>
+        <p>Click the button below to discover a new world of purchasable fashion.</p>
+        <button class="main-btn" id="random-btn"> GO! </button>
+    </div>
+
+    <div class="custom-panel">
+        <span>Theme</span>
+        <div class="color-dot dot-pink" data-color="#fff0f5"></div>
+        <div class="color-dot dot-blue" data-color="#e6f7ff"></div>
+        <div class="color-dot dot-yellow" data-color="#fefae0"></div>
+        <div class="color-dot dot-green" data-color="#e8f5e9"></div>
+        <div class="color-dot dot-purple" data-color="#f3e5f5"></div>
+    </div>
+
+    <script>
+        const websites = [
+            "https://wikipedia.org",
+            "https://archive.org",
+            "https://gutenberg.org",
+            "https://nasa.gov",
+            "https://ted.com"
+        ];
+
+        const cutePhrases = [
+            "✨ Press Me! ✨",
+            " Let's Go! ",
+            "💫 Ready? 💫",
+            " Clicky! ",
+            "🦄 Take Off! 🦄",
+            "🍦 I'm Ready! 🍦"
+        ];
+
+        const randomBtn = document.getElementById('random-btn');
+        const colorDots = document.querySelectorAll('.color-dot');
+
+        randomBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * websites.length);
+            const targetUrl = websites[randomIndex];
+            window.open(targetUrl, '_blank');
+        });
+
+        randomBtn.addEventListener('mouseenter', () => {
+            const randomPhraseIndex = Math.floor(Math.random() * cutePhrases.length);
+            randomBtn.textContent = cutePhrases[randomPhraseIndex];
+        });
+
+        randomBtn.addEventListener('mouseleave', () => {
+            randomBtn.textContent = "✨ GO! ✨";
+        });
+
+        function playBubblePopSound() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const audioCtx = new AudioContext();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(700, audioCtx.currentTime + 0.12);
+            
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.12);
+        }
+
+        colorDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const selectedColor = dot.getAttribute('data-color');
+                document.body.style.backgroundColor = selectedColor;
+                playBubblePopSound();
+            });
+        });
+    </script>
+
+</body>
+</html>
